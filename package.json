@@ -1,0 +1,29 @@
+{
+  "name": "final-project",
+  "version": "1.0.0",
+  "description": "App to help carpoolers connect with each other",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "patrick.kimmitt@tobha.com",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.15.2",
+    "client-sessions": "^0.7.0",
+    "colors": "^1.1.2",
+    "ejs": "^2.5.1",
+    "express": "^4.14.0",
+    "express-fileupload": "0.0.5",
+    "lodash": "^4.15.0",
+    "mongoose": "^4.5.8",
+    "morgan": "^1.7.0",
+    "neo4j": "^2.0.0-RC2",
+    "request": "^2.74.0",
+    "snoocore": "^3.3.1",
+    "twilio": "^2.10.0",
+    "twitter": "^1.4.0",
+    "watson-developer-cloud": "^2.1.0"
+  }
+}

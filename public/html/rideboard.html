@@ -1,0 +1,66 @@
+<div class="container landing" ng-init="ac.listOfRides()">
+  <ul class="nav nav-pills pull-right">
+    <li><a href="/ride/#/createRide">Create Ride</a></li>
+    <li><a href="/userprofile/#/useredit">My Profile</a></li>
+    <li><a href="/logout">Logout</a></li>
+  </ul>
+
+  <input type="hidden" name="username" ng-model="ac.user.username">
+
+  <h1 class="slogan-rideboard">Hitc<strong class="hitchHiker">[Hi]</strong>ker Ride Board</h1>
+  <h4>Use this to find rides that match your needs</h4>
+
+  <h2>Welcome back {{ac.user.username}}!</h2>
+
+
+  <!-- <input type="button" value="Search" name="getRidesButton" ng-click="ac.listOfRides()"> -->
+
+  <!-- <div class="radioGroupBorder" ng-repeat="x in ac.rideList">
+    {{x.username}} {{x.origin}} {{x.destination}}
+  </div> -->
+
+  <table class="table table-striped">
+      <!-- <caption>You can put a table title here</caption> -->
+      <thead >
+          <tr >
+              <th class="centerText">Username</th>
+              <th class="centerText">Rider or Driver</th>
+              <th class="centerText">Send Carpool Request</th>
+              
+              <th class="centerText">Origin</th>
+              <th class="centerText">Destination</th>
+              <th class="centerText">Begin</th>
+              <th class="centerText">End</th>
+              <th class="centerText">Days</th>
+              <th class="centerText">One Time</th>            
+          </tr>
+      </thead>
+      <tbody>
+          <tr ng-repeat="x in ac.rideList" class="centerText">
+            
+            <td><a href="/userprofile/#/userview/{{x.username}}">{{ x.username }}</td></div>
+
+              <td>{{ x.userType}}</td>
+              <td class="">
+                <a href="#/message/{{x.username}}/{{x.origin}}/{{x.destination}}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></td>
+              <td>{{ x.origin }}</td>
+              <td>{{ x.destination }}</td>
+              <td>{{ x.departure | date }}</td>
+              <td>{{ x.arrival }}</td>
+              <td>{{ x.days }}</td> <!-- this will be an array of 2 letter abreviations -->
+              <td>{{ x.date | date }}</td>
+
+
+  <!--             <td>{{ x.sunday }}</td>
+              <td>{{ x.monday }}</td>
+              <td>{{ x.tuesday }}</td>
+              <td>{{ x.wednesday }}</td>
+              <td>{{ x.thursday }}</td>
+              <td>{{ x.friday }}</td>
+              <td>{{ x.saturday }}</td> -->
+
+          </tr>
+      </tbody>
+      <tfoot></tfoot>
+  </table>
+</div>

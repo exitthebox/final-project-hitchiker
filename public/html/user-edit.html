@@ -1,0 +1,119 @@
+<!-- todo: need to findOne() on this form or load user values from controller -->
+
+<div class="container landing " ng-init="ac.loadUserEdit()">
+  <ul class="nav nav-pills pull-right" >
+      <!-- <li><a href="/#/">Home</a></li> -->
+      <!-- <li><a href="/#/login">Login</a></li> -->
+      <!-- below is a href to the server side route for the ride spa -->
+      <!-- <li><a href="/#/ride">Rideboard #</a></li> -->
+      <li><a href="/ride/#/ride">Rideboard</a></li>
+      <li><a href="/logout/#/logout">Logout</a></li>
+      <!-- <li><a href="/#/login" class="signup">Sign Up</a></li> -->
+
+    </ul>
+
+  <h1 class="slogan-rideboard">Hitc<strong class="hitchHiker">[Hi]</strong>ker</h1>
+  <h4>Edit your profile {{ac.user.username}}</h4>
+
+
+<br>
+
+<div class="profileImageDiv">
+  <img class="profileImage" ng-src="../{{ac.user.current_image}}">
+</div>
+<label class="btn btn-default btn-primary upload-btn"> Upload
+  <input style="display: none;" type="file" id="file1" name="file" multiple
+            ng-files="ac.getTheFiles($files)"  />
+</label>
+<br>
+<br>
+
+
+
+  <form class="form-horizontal user-edit" ng-submit="ac.updateUser(ac.user)">
+    <div class="form-group">
+      <label >First Name</label>
+        <input type="text" class="form-control" placeholder="First Name" ng-model='ac.user.first_name'>
+      </label>
+    </div>
+    <div class="form-group">
+      <label >Last Name</label>
+      <input type="text" class="form-control" placeholder="Last Name" ng-model='ac.user.last_name'>
+      </label>
+    </div>
+    <div class="form-group">
+      <label >Mobile Phone. Used for SMS Text Ride Hailing</label>
+      <input type="tel" class="form-control" placeholder="Mobile Phone" ng-model='ac.user.mobile'>
+      </label>
+    </div>
+      <div class="form-group">
+        <label >Twitter handle. </label><p>We use your tweets to build a personality profile of you.</p>
+      <input id="twitterInput" type="text" class="form-control" placeholder="Twitter" ng-model='ac.user.twitter'>
+      </label>
+    </div>
+      <div class="form-group">
+        <label >Reddit user name. </label><p>We use your reddit comments to build a personality profile of you.</p>
+      <input type="text" class="form-control" placeholder="Reddit" ng-model='ac.user.reddit'>
+      </label>
+    </div>
+    <div class="form-group">
+      <label >Car Make</label><p>Rider only? Leave this blank</p>
+      <input type="text" class="form-control" placeholder="car make" ng-model='ac.user.car_make'>
+      </label>
+    </div>
+      <div class="form-group">
+        <label >Car Model</label><p>Rider only? Leave this blank</p>
+      <input type="text" class="form-control" placeholder="car model" ng-model='ac.user.car_model'>
+      </label>
+    </div>
+      <div class="form-group">
+        <label >Car Year</label><p>Rider only? Leave this blank</p>
+      <input type="text" class="form-control" placeholder="car year" ng-model='ac.user.car_year'>
+      </label>
+    </div>
+          <div class="form-group">
+        <label >Politics</label><p>Describe your politics, if its important to you</p>
+      <input type="text" class="form-control" placeholder="Political leaning" ng-model='ac.user.politics'>
+      </label>
+    </div>
+          <div class="form-group">
+        <label >Outdoor</label><p>Describe your outdoor interests, i.e, hiking, skiing, gardening</p>
+      <input type="text" class="form-control" placeholder="Outdoor activities" ng-model='ac.user.outdoor'>
+      </label>
+    </div>
+          <div class="form-group">
+        <label >Sports</label><p>Describe your favorite sports teams</p>
+      <input type="text" class="form-control" placeholder="Favorite Sports Teams" ng-model='ac.user.sports'>
+      </label>
+    </div>
+          <div class="form-group">
+        <label >Orientation</label><p>If you don't know what this means, leave it blank</p>
+      <input type="text" class="form-control" placeholder="Orientation" ng-model='ac.user.orientation'>
+      </label>
+    </div>
+          <div class="form-group">
+        <label >Talk</label><p>Do you like to listen to the radio or talk to your ride companion?</p>
+      <input type="text" class="form-control" placeholder="Conversation Preference" ng-model='ac.user.talk'>
+      </label>
+    </div>
+    
+     <label for="messagebody">Write Something About Yourself</label><p>We use what you write about yourself to build a personality profile.</p>
+    <div class="form-group">
+      <textarea rows="5" maxlength="1000" class="form-control" placeholder="Enter a minimum of 100 words" ng-model='ac.user.essay'></textarea>
+    </div>
+
+    <div class="form-group">
+<!--       <div class="col-sm-offset-2 col-sm-10">
+ -->        
+      <div class="">
+
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+
+    <h2>Your top five personality traits:</h2>
+<div class="top5Traits columns"> 
+    <div class="top5Traits" ng-repeat="x in ac.user.traits | limitTo:5 track by $index">{{x.name}}</div>
+</div>  
+  </form>
+</div>

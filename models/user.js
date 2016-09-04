@@ -1,0 +1,69 @@
+const SALTY_BITS = 10; // strength of your passowrd encryption, 10 is usually more than enough
+
+var mongoose = require('mongoose'),
+    // bcrypt = require('bcrypt') // sudo apt-get install bcrypt [ run update first, thanks Juliano ;) ] USE THIS FOR PRODUCTION
+    bcrypt = require('bcryptjs'),
+    UserSchema = new mongoose.Schema({
+        first_name          :   String,
+        last_name           :   String,
+        nick_name           :   String,
+        username            :   {type: String, unique: true},
+        email               :   {type: String, unique: true},
+        mobile              :   {type: String, unique: true},
+        password            :   String,
+        car_make            :   String,
+        car_model           :   String,
+        car_year            :   String,
+        twitter             :   String,
+        reddit              :   String,
+        essay               :   String,
+        rating              :   String,
+        gender              :   String,
+        politics            :   String,
+        outdoor             :   String,
+        sports              :   String,
+        orientation         :   String,
+        talk                :   String,
+        description         :   String,
+        conscientiousness   :   String,
+        agreeableness       :   String,
+        neuroticism         :   String,
+        openness            :   String,
+        traits              :   [],
+        current_image       :   String,
+        ip_address          :   String,
+        created: {
+            type: Number,
+            default: () => Date.now()
+        }
+ 
+    });
+
+// hash passwords before saving a new user
+UserSchema.pre('save', function(next) { // don't use an arrow function here, we need the scope!
+    var user = this; // this is why we can't use an arrow function  here, again we need the scope
+
+    // only hash the password if it has been modified (for updating users)
+    if( !user.isModified('password') ) {
+        return next();
+    }
+    // generate a salt value to encrypt our password
+    bcrypt.genSalt(SALTY_BITS, (saltErr, salt) => { // used to guarentee uniqueness
+        if(saltErr) {
+            return next(saltErr);
+        }
+        console.info('SALT generated!'.yellow, salt);
+
+        // now let's hash this bad boy!
+        bcrypt.hash(user.password, salt, (hashErr, hashedPassword) => {
+            if( hashErr ) {
+                return next(hashErr);
+            }
+            // over-ride the plain text password with the hashed one
+            user.password = hashedPassword;
+            next();
+        });
+    });
+});
+
+module.exports = mongoose.model('User', UserSchema);

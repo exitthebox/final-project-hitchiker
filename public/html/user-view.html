@@ -1,0 +1,43 @@
+<div class="container landing" ng-init="ac.loadUser()"> <!-- loads the user clicked on in the previous screen -->
+<!-- <div class="container landing"> -->
+
+  <ul class="nav nav-pills pull-right" >
+
+      <li><a href="/ride/#/ride">Rideboard</a></li>
+      <li><a href="/logout/#/logout">Logout</a></li>
+
+    </ul>
+<h1 class="slogan-rideboard">Hitc<strong class="hitchHiker">[Hi]</strong>ker {{ac.user.username}}</h1>
+
+<div class="profileImageDiv">
+  <img class="profileImage" ng-src="../{{ac.user.current_image}}">
+</div>
+
+  <h2>Matching Personality traits with you: </h2>
+  <div class="matchingPITraits columns">
+     <div ng-repeat="x in ac.traits track by $index"><h5 class="traits">{{x}}</h5></div>
+  </div>
+
+  <div class="userBottomBorder"><h4>User Name: <span class="userItemDisplay">{{ac.user.username}}</span> </h4></div>
+  <div class="userBottomBorder"><h4>First Name: <span class="userItemDisplay"> {{ac.user.first_name}}</span></h4></div>
+  <div class="userBottomBorder"><h4>Last Name: <span class="userItemDisplay"> {{ac.user.last_name}}</span></h4></div>
+  <div class="userBottomBorder"><h4>Car Make: <span class="userItemDisplay"> {{ac.user.car_make}}</span></h4></div>
+  <div class="userBottomBorder"><h4>Car Model: <span class="userItemDisplay"> {{ac.user.car_model}}</span></h4></div>
+
+  <div class="userBottomBorder"><h4>Car Year: <span class="userItemDisplay"> {{ac.user.car_year}}</span></h4></div>
+  <div class="userBottomBorder"><h4>twitter: <span class="userItemDisplay"> {{ac.user.twitter}}</span></h4></div>
+  <div class="userBottomBorder"><h4>reddit: <span class="userItemDisplay"> {{ac.user.reddit}}</span></h4></div> 
+  <div class="userBottomBorder"><h4>rating: <span class="userItemDisplay"> {{ac.user.rating}}</span></h4></div> 
+  <div class="userBottomBorder"><h4>gender: <span class="userItemDisplay"> {{ac.user.gender}}</span></h4></div> 
+
+  <div class="userBottomBorder"><h4>politics: <span class="userItemDisplay"> {{ac.user.politics}}</span></h4></div>
+  <div class="userBottomBorder"><h4>outdoor: <span class="userItemDisplay"> {{ac.user.outdoor}}</span></h4></div>
+  <div class="userBottomBorder"><h4>sports: <span class="userItemDisplay"> {{ac.user.sports}}</span></h4></div> 
+  <div class="userBottomBorder"><h4>orientation: <span class="userItemDisplay"> {{ac.user.orientation}}</span></h4></div>
+  <div class="userBottomBorder"><h4>talk: <span class="userItemDisplay"> {{ac.user.talk}}</span></h4></div>   
+
+  <div class="userBottomBorder"><h4>Personal Essay: <span class="userItemDisplay"> {{ac.user.essay}}</span></h4></div>
+
+
+  <!-- todo: autopopulate these fields when the page loads. try doing it in the controller from a function call -->
+</div>

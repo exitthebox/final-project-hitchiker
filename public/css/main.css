@@ -1,0 +1,219 @@
+
+
+#logoimage{
+  display: block;
+  width: 15%;
+  margin: auto;
+}
+
+#topSpace{
+  margin: 50px;
+}
+
+.landing{
+  width: 1000px;
+  margin-top: 10px;
+}
+
+#tabs{
+  width: 300px;
+}
+
+
+.slogan{
+ font-size: 3.5em;
+ text-align: center;
+ color: white;
+ font-weight: bold;
+ text-shadow:
+    -.5px -.5px 0 #000,
+    .5px -.5px 0 #000,
+    -.5px .5px 0 #000,
+    .5px .5px 0 #000; 
+}
+
+.subSlogan{
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 2.0em;
+   text-shadow:
+    -.5px -.5px 0 #000,
+    .5px -.5px 0 #000,
+    -.5px .5px 0 #000,
+    .5px .5px 0 #000; 
+}
+
+.landingpara1{
+  background: rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  border-radius: 5px;
+
+}
+
+#hitchhikerTitle{
+  text-align: center;
+  font-size: 5.0em;
+}
+
+.user-edit{
+  margin: 10px, auto;
+}
+
+.checkBoxGroupBorder{
+  border: .5px solid #cecccc;
+  border-radius: 5px;
+  padding: 10px;
+  /*padding-divdidifidftop: 0px;*/
+  background-color: white;
+  margin-bottom: 5px;
+  float: left;
+  display: block;
+}
+
+.radioGroupBorder{
+  border: .5px solid #cecccc;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.riderSave{
+  margin-left: -170px;
+  background: green;
+  color: white;
+  margin-top: 10px;
+}
+
+.dateOfTrip{
+  margin-bottom: 20px;
+  margin-top: 30px;
+  margin-left: 200px;
+  /*float: right;*/
+  display: block;
+}
+
+.oneTimeTrip{
+  margin-top: -50px;
+}
+
+.radioUser{
+  background-color: white;
+  border: white solid;
+}
+
+.userBottomBorder{
+  border-bottom: .5px solid black;
+}
+
+.sendMessage{
+  background-color: green;
+
+}
+
+.sendMessage a{
+/*  color: green;
+  font-size: 1.5em;*/
+  display:block;
+  text-decoration:none;
+}
+
+.desertBackground{
+  background-image: url('/images/road-sunset-desert-travelling.jpeg');
+}
+
+.profileImage{
+  width: 100%;
+  height: 100%;
+  border: solid black 10px;
+  border-radius: 5px;
+}
+
+.profileImageDiv{
+  padding: 10px;
+  margin: 10px;
+  width: 200px;
+/*  float: left;
+  display: block;*/
+}
+
+.hitchHiker{
+  color: #8C0000;
+}
+
+.landing-background{
+  background-image: url('/images/newspaper.gif');
+  background-size: cover;
+
+  background-repeat: no-repeat;
+}
+
+.ride-background{
+  background-color: #F2F2F2;
+}
+
+.user-background{
+  background-color: #F2F2F2;
+}
+
+.centerText{
+  text-align: center;
+}
+
+.slogan-rideboard{
+  font-size: 3.5em;
+ /*text-align: center;*/
+ color: black;
+ font-weight: bold;
+}
+
+.nav>li>a{
+  display: inline;
+}
+
+.loginRegister{
+  background-color: #F2F2F2
+}
+
+.upload-btn{
+  margin-left: 15px
+}
+
+.userItemDisplay{
+  color: #8C0000;
+}
+
+.matchingPITraits{
+  border: solid black .5px;
+/*  float: right;*/
+  display: block;
+}
+
+.columns{
+  columns: 4;
+}
+
+.traits{
+  padding: 1px;
+  margin: 1px;
+  color: #8C0000;
+}
+
+.checkboxSpan{
+  margin-top: 5px;
+}
+
+.top5Traits{
+  font-size: 1.2em;
+}
+
+#twitterInput{
+  required: true;
+}
+
+
+
+.signup{
+  background: green;
+  color: white;
+
+}

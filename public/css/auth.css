@@ -1,0 +1,41 @@
+form {
+    padding: 0 30px;
+}
+
+#tabs {
+    margin: 100px auto;
+    width: 480px;
+    font-size: 2.0em;
+    padding-top: -3px;
+}
+
+#tabs h1 {
+    margin: 0;
+    padding: 30px;
+}
+
+.tab-content {
+    border: 1px solid #ddd;
+    border-top: none;
+}
+
+.alert {
+    margin: 20px 0;
+}
+
+.tab-pane {
+    padding: 30px 0;
+    box-sizing: border-box;
+}
+
+.nav-tabs{
+    border-bottom: 0px;
+}
+
+/*.nav>li>a{
+    padding: 1px 25px;
+}*/
+
+.nav>li>a.landingLoginSignup{
+  padding: 10px 15px;
+}
