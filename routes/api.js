@@ -5,12 +5,13 @@ var request     =   require('request'),
     snoocore    =   require('snoocore'),
     _           =   require('lodash'),
     userDB      =   require('../models/user'),
+    userProfileDB      =   require('../models/user_profile'),
     rideDB      =   require('../models/ride');
 
 var neo4j = require('neo4j');
 var graphDB = new neo4j.GraphDatabase(process.env.neo4j_path);
 
-var twilio     =   require('twilio')('process.env.TWILIO_key', 'process.env.TWILIO_secret')
+var twilio     =   require('twilio')(process.env.TWILIO_key, process.env.TWILIO_secret)
 
     // keys        =   require('./keys.js')
 
@@ -25,8 +26,8 @@ var twilio     =   require('twilio')('process.env.TWILIO_key', 'process.env.TWIL
     // console.log('REDDIT_key: ', process.env.REDDIT_key)
     // console.log('REDDIT_redirectURI: ', process.env.REDDIT_redirectURI)
 
-var tweet = new twitter({
 
+var tweet = new twitter({
   consumer_key          : process.env.TWITTER_consumer_key,
   consumer_secret       : process.env.TWITTER_consumer_secret,
   access_token_key      : process.env.TWITTER_access_token_key,
@@ -49,7 +50,7 @@ var loadPI = function(sessionUserId, traits){
 
     // need to check if PI traits already exist and if they do, remove the current and add new
 
-    userDB.findByIdAndUpdate(sessionUserId, {$unset: { traits: traits }}, (err, user)=>{
+    userProfileDB.findByIdAndUpdate(sessionUserId, {$unset: { traits: traits }}, (err, user)=>{
         if( err ) {
             console.log('#ERROR#'.red, 'Could not find new user :(', err);
             res.status(500).send(':(');
@@ -59,7 +60,7 @@ var loadPI = function(sessionUserId, traits){
         }
     })
 
-    userDB.findByIdAndUpdate(sessionUserId, {$set: { traits: traits }}, (err, user)=>{
+    userProfileDB.findByIdAndUpdate(sessionUserId, {$set: { traits: traits }}, (err, user)=>{
         if( err ) {
             console.log('#ERROR#'.red, 'Could not find new user :(', err);
             res.status(500).send(':(');
@@ -76,23 +77,33 @@ module.exports = {
     fetchTweets: (req, res) => {
         // console.log('fetchTweets() api.js', req.params.id)
         //NPM example code - 
-        var params = {screen_name: req.params.id || 'twitter', count: 20};
-        var tweetCollection = 'tweets '
-        tweet.get('statuses/user_timeline', params, function(error, tweets, response) {
-            tweets.forEach((t)=>{
-                // console.log('foreach() t:', t.text)
-                tweetCollection += t.text
-            })
-            if(tweetCollection){
-                // console.log('tweetCollection...'.yellow, tweetCollection)
-                res.send(tweetCollection)
-            }else{
-                console.log("fetchTweets() error".yellow, error)
-                res.end()
-            }
+        console.log('twitter consumer_key: '.yellow, tweet.options.request_options.headers)
+        var params = {screen_name: req.params.id || 'twitter', 
+                        count: 20};
+        var tweetCollection = 'tweets'
+        res.send('no tweets!')//twitter not working bail out!
+        // tweet.get('statuses/user_timeline', params, function(error, tweets, response) {
+        //     if(error){ 
+        //         console.log('twitter error: '.red, error)
+        //     }
+        //     else{
+
+        //         console.log('tweets: '.yellow, tweets)
+        //         tweets.forEach((t)=>{
+        //             // console.log('foreach() t:', t.text)
+        //             tweetCollection += t.text
+        //         })
+        //         if(tweetCollection){
+        //             // console.log('tweetCollection...'.yellow, tweetCollection)
+        //             res.send(tweetCollection)
+        //         }else{
+        //             console.log("fetchTweets() error".yellow, error)
+        //             res.end()
+        //         }
+        //     }
             
             
-        });
+        // });
     },
     fetchRedditComments: (req, res) => {
         // var urlCaptionsArray = []
@@ -129,7 +140,7 @@ module.exports = {
                 redditComments += r.data.body
 
             })
-            // console.log('result: ', redditComments)
+            console.log('result: ', redditComments)
             res.send(redditComments)
 
         }).catch((error)=>{
@@ -149,6 +160,10 @@ module.exports = {
         var sessionUserId = req.session.user._id
         var reqBody = req.body
         // console.log("fetchPersonality().. with data...".yellow, reqBody)
+        console.log("fetchPersonality().. with session data...".yellow, sessionUserId)
+
+
+        //pass the userProfile id to sessionUserId
 
         personality_insights.profile({
             text: reqBody,
@@ -232,18 +247,34 @@ module.exports = {
         // res.json(req.session.user)
         var session = req.session
 
-                console.log('fetchUser() username req.session: '.yellow, session)
+        console.log('req.session: '.yellow, session)
 
         if(session !== null){
             userDB.findOne({
                 _id: req.session.user._id
             }, (err, user)=>{
-                console.log('fetchUser() MongoDB: '.yellow)
+                // console.log('fetchUser() MongoDB: '.yellow)
                 if (err){ return (err)
                 }
                 else{
-                    console.log('fetchUser() MongoDB: '.yellow, user)
-                    res.json(user)
+                    console.log('fetchUser() from sessionUserId MongoDB: '.yellow, user)
+                    userProfileDB.findOne({
+                        username: user.username
+                    }, (err, userProfile)=>{
+                        console.log('fetchUser() from username MongoDB: '.yellow, userProfile)
+                        if (err){ return (err)
+                        }
+                        else{
+                            if(userProfile){
+                                res.json(userProfile)
+                            }
+                            else{
+                                res.json(user)
+                            }
+                        }
+
+                    })
+                    
                  // console.log('user returned: ', user.username)   
                 }
                 
@@ -256,7 +287,8 @@ module.exports = {
     },
     updateUser: (req, res)=>{
         console.log('req.session.id in api.js:'.cyan, req.session.user._id);
-        userDB.findOne({
+        console.log('updateUser() req.body: '.cyan, req.body)
+        userProfileDB.findOne({
             _id: req.session.user._id
         }, (err, user) => {
             if( err ) {
@@ -264,12 +296,28 @@ module.exports = {
                 res.status(500).send(':(');
             } else {
                 // console.log('New user created in MongoDB:', user);
-                user.update(req.body, (err, user) => {
-                    // console.log('req.session.user: ', req.session.user)
-                    res.send(err||user);
-                    // console.log('updatedUser.update() success'.yellow)
-                    // res.redirect('/ride/#/createRide')   //this won't work because I get headers already defined errors                     
-                });
+                if(user){
+                    //user not null... proceed with save
+                    console.log('updateUser: '.cyan, user)
+                    user.update(req.body, (err, user) => {
+                        // console.log('req.session.user: ', req.session.user)
+                        res.send(err||user);
+                        // console.log('updatedUser.update() success'.yellow)
+                        // res.redirect('/ride/#/createRide')   //this won't work because I get headers already defined errors                     
+                    });
+                }
+                else{
+                    //new user, so we need to create a new document
+                    var newUser = new userProfileDB(req.body)
+                    console.log('updateUser: '.cyan, newUser)
+                    newUser.save(req.body, (err, user) => {
+                        // console.log('req.session.user: ', req.session.user)
+                        res.send(err||user);
+                        // console.log('updatedUser.update() success'.yellow)
+                        // res.redirect('/ride/#/createRide')   //this won't work because I get headers already defined errors                     
+                    });
+                }
+                
             }
         });
     },
@@ -304,7 +352,7 @@ module.exports = {
         var uId = req.params.id
         console.log('loadUser() uId: '.yellow, uId)
         if(uId){
-            userDB.findOne({
+            userProfileDB.findOne({
                 username: uId
             }, (err, user)=>{
                 if (err){ 
@@ -326,7 +374,7 @@ module.exports = {
         var uId = req.params.id
         console.log('loadUser() uId: '.yellow, uId)
 
-        userDB.findOne({
+        userProfileDB.findOne({
             username: uId
         }, (err, user)=>{
             if (err){ 

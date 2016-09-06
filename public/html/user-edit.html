@@ -32,6 +32,11 @@
 
   <form class="form-horizontal user-edit" ng-submit="ac.updateUser(ac.user)">
     <div class="form-group">
+      <label >User Name</label>
+        <input type="text" class="form-control" placeholder="User Name" ng-model='ac.user.username'>
+      </label>
+    </div>
+    <div class="form-group">
       <label >First Name</label>
         <input type="text" class="form-control" placeholder="First Name" ng-model='ac.user.first_name'>
       </label>

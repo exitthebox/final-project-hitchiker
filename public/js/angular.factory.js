@@ -21,7 +21,7 @@ function ApiFactory ($http){
       return $http.get('/api/reddit/'+req)
     }
     function getPersonality (req){
-      console.log('xxxxxxxxxxxxxxxxx getPersonality... this needs to be a $put! xxxxxxxxxxxxxxx', req)
+      // console.log('xxxxxxxxxxxxxxxxx getPersonality... this needs to be a $put! xxxxxxxxxxxxxxx', req)
       return $http({
         method: 'PUT',
         url: '/api/pi',

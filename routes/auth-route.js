@@ -25,7 +25,7 @@ module.exports = {
     login: (req, res) => { // form post submission
 
         //the below console.log will expose the password in plain text
-        console.log('auth-route.login() before User.findOne()'.yellow, req.session, req.body);
+        // console.log('auth-route.login() before User.findOne()'.yellow, req.session, req.body);
 
 
         User.findOne({

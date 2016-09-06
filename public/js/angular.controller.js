@@ -16,7 +16,7 @@ angular.module('app', ['ngRoute'])
 // inject the service $routeProvider, from ngRoute
 angular.module('app')
   .config(function ($routeProvider) { 
-    console.log('$routeProvider', $routeProvider)
+    // console.log('$routeProvider', $routeProvider)
     $routeProvider.when( '/', {
       
         templateUrl: './landing.html'
@@ -87,9 +87,9 @@ function AppController(ApiFactory, $window, $routeParams, $http){
   ac.ride = {}
 
   ac.loadUserFromSessionId = function (){
-    console.log('loadUserFromSessionId()...')
+    // console.log('loadUserFromSessionId()...')
     ApiFactory.fetchUser().then((res)=>{
-      console.log('res.data.username', res.data.username)
+      // console.log('res.data.username', res.data.username)
       ac.user.username = res.data.username
     })
   }
@@ -115,7 +115,7 @@ function AppController(ApiFactory, $window, $routeParams, $http){
             }
         };
         $http(request).then((res)=>{
-          console.log('$http.then', res.data)
+          // console.log('$http.then', res.data)
 
           ApiFactory.updateUser({current_image : res.data}).then((response)=>{
             // console.log('ApiFactory.updateUser()', response)
@@ -129,9 +129,9 @@ function AppController(ApiFactory, $window, $routeParams, $http){
 
   }
   ac.loadUserEdit = function(){
-    
-    ApiFactory.loadUser(ac.user.username).then((response)=>{
-      console.log('response.data from loadUser(): ', response.data)
+      ApiFactory.fetchUser().then((response)=>{
+    // ApiFactory.loadUser(ac.user.username).then((response)=>{
+      // console.log('response.data from loadUser(): ', response.data)
       ac.user = response.data
     })
   }
@@ -148,9 +148,9 @@ function AppController(ApiFactory, $window, $routeParams, $http){
   ac.loadUserForMessage = function(){
     // console.log('loadUserForMessage()')
     // var uId = $routeParams.id
-    console.log('loadUserForMessage(): ', $routeParams)
+    // console.log('loadUserForMessage(): ', $routeParams)
     ApiFactory.loadUserForMessage($routeParams).then((response)=>{
-      console.log('ApiFactory.loadUserForMessage()', response)
+      // console.log('ApiFactory.loadUserForMessage()', response)
       // checkPersonalityForMatch(ac.user.username)
       // console.log('loaded traits: ', response.data.traits[0].name)
 
@@ -189,7 +189,7 @@ function AppController(ApiFactory, $window, $routeParams, $http){
         liUserTraitNames.push(i.name)
       })
       liUserTraitNames.sort()
-            console.log("loggedInUserTraits: ", liUserTraitNames)
+            // console.log("loggedInUserTraits: ", liUserTraitNames)
             // console.log('$routeParams: ', $routeParams)
 
       // fetch the username's profile
@@ -213,7 +213,7 @@ function AppController(ApiFactory, $window, $routeParams, $http){
               matchingTraits.push(i)
             }
             else{
-              console.log('no match')
+              // console.log('no match')
             }
           })
         })
@@ -244,9 +244,9 @@ function AppController(ApiFactory, $window, $routeParams, $http){
   ac.userClicked = function(x){
     //enable and fix the line below to redirect to the user's profile
     // $window.location.href = '/userprofile/#/user-view/:id'
-    console.log('userClicked', x)
+    // console.log('userClicked', x)
     ac.user.storedUser = x
-    console.log('ac.user.storedUser in userClicked(): ', ac.user.storedUser)
+    // console.log('ac.user.storedUser in userClicked(): ', ac.user.storedUser)
     $window.location.href = '/userprofile/#/userview/'
   }
 
@@ -270,7 +270,7 @@ function AppController(ApiFactory, $window, $routeParams, $http){
 
       })
       
-      console.log('ac.rideList: ', ac.rideList)
+      // console.log('ac.rideList: ', ac.rideList)
 
     })
   }
@@ -422,7 +422,7 @@ function AppController(ApiFactory, $window, $routeParams, $http){
     ApiFactory
       .getPersonality(req, res)
       .then(function(){
-        console.log('getPersonality() in controller', res.data)
+        // console.log('getPersonality() in controller', res.data)
         ac.traits = res.data.traits
         // console.log()
       })
